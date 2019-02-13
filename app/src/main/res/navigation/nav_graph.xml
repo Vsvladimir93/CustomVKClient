@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/myPageFragment">
+
+    <fragment
+        android:id="@+id/myPageFragment"
+        android:name="com.experience.customvkclient.activity.MyPageFragment"
+        android:label="fragment_my_page"
+        tools:layout="@layout/fragment_my_page" >
+        <action
+            android:id="@+id/action_myPageFragment_to_friendsListFragment"
+            app:destination="@id/friendsListFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_fotoListFragment"
+            app:destination="@id/fotoListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/friendsListFragment"
+        android:name="com.experience.customvkclient.activity.FriendsListFragment"
+        android:label="fragment_friends_list"
+        tools:layout="@layout/fragment_friends_list" >
+        <action
+            android:id="@+id/action_friendsListFragment_to_fotoListFragment"
+            app:destination="@id/fotoListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fotoListFragment"
+        android:name="com.experience.customvkclient.activity.FotoListFragment"
+        android:label="fragment_foto_list"
+        tools:layout="@layout/fragment_foto_list" >
+        <action
+            android:id="@+id/action_fotoListFragment_to_largeFotoFragment"
+            app:destination="@id/largeFotoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/largeFotoFragment"
+        android:name="com.experience.customvkclient.activity.LargeFotoFragment"
+        android:label="fragment_large_foto"
+        tools:layout="@layout/fragment_large_foto" />
+</navigation>
