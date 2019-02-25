@@ -3,41 +3,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/myPageFragment">
+    app:startDestination="@id/profileFragment">
 
     <fragment
-        android:id="@+id/myPageFragment"
-        android:name="com.experience.customvkclient.activity.MyPageFragment"
+        android:id="@+id/profileFragment"
+        android:name="com.experience.customvkclient.ui.ProfileFragment"
         android:label="fragment_my_page"
-        tools:layout="@layout/fragment_my_page" >
+        tools:layout="@layout/fragment_profile" >
         <action
-            android:id="@+id/action_myPageFragment_to_friendsListFragment"
+            android:id="@+id/action_profileFragment_to_friendsListFragment"
             app:destination="@id/friendsListFragment" />
         <action
-            android:id="@+id/action_myPageFragment_to_fotoListFragment"
-            app:destination="@id/fotoListFragment" />
+            android:id="@+id/action_profileFragment_to_largePhotoFragment"
+            app:destination="@id/largePhotoFragment" >
+            <argument android:defaultValue="a"
+                android:name="photo_url" />
+        </action>
+        <argument
+            android:name="FriendProfile"
+            app:argType="com.experience.customvkclient.model.Profile"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/friendsListFragment"
-        android:name="com.experience.customvkclient.activity.FriendsListFragment"
+        android:name="com.experience.customvkclient.ui.FriendsListFragment"
         android:label="fragment_friends_list"
         tools:layout="@layout/fragment_friends_list" >
         <action
-            android:id="@+id/action_friendsListFragment_to_fotoListFragment"
-            app:destination="@id/fotoListFragment" />
+            android:id="@+id/action_friendsListFragment_to_profileFragment"
+            app:destination="@id/profileFragment" >
+            <argument
+                android:name="FriendProfile"
+                android:defaultValue="null" />
+        </action>
     </fragment>
     <fragment
-        android:id="@+id/fotoListFragment"
-        android:name="com.experience.customvkclient.activity.FotoListFragment"
-        android:label="fragment_foto_list"
-        tools:layout="@layout/fragment_foto_list" >
-        <action
-            android:id="@+id/action_fotoListFragment_to_largeFotoFragment"
-            app:destination="@id/largeFotoFragment" />
+        android:id="@+id/largePhotoFragment"
+        android:name="com.experience.customvkclient.ui.LargePhotoFragment"
+        android:label="fragment_large_photo"
+        tools:layout="@layout/fragment_large_photo" >
+        <argument
+            android:name="photo_url"
+            app:argType="string" />
     </fragment>
-    <fragment
-        android:id="@+id/largeFotoFragment"
-        android:name="com.experience.customvkclient.activity.LargeFotoFragment"
-        android:label="fragment_large_foto"
-        tools:layout="@layout/fragment_large_foto" />
 </navigation>

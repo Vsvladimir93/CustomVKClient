@@ -2,9 +2,9 @@ package com.experience.customvkclient;
 
 import android.app.Application;
 import android.content.Intent;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
-import com.experience.customvkclient.activity.MainActivity;
+import com.experience.customvkclient.ui.MainActivity;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKAccessTokenTracker;
 import com.vk.sdk.VKSdk;

@@ -22,11 +22,7 @@
 
 package com.vk.sdk.api;
 
-import android.support.annotation.NonNull;
-
-import com.vk.sdk.api.VKError;
-import com.vk.sdk.api.VKRequest;
-import com.vk.sdk.api.VKResponse;
+import androidx.annotation.NonNull;
 
 class VKSyncRequestUtil {
 

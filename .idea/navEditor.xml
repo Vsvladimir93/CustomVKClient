@@ -8,30 +8,18 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="fotoListFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="294" />
-                            <option name="y" value="342" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="friendsListFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="140" />
-                            <option name="y" value="-217" />
+                            <option name="x" value="250" />
+                            <option name="y" value="-354" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_friendsListFragment_to_fotoListFragment">
+                            <entry key="action_friendsListFragment_to_profileFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -41,35 +29,35 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="largeFotoFragment">
+                  <entry key="largePhotoFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="561" />
-                            <option name="y" value="343" />
+                            <option name="x" value="332" />
+                            <option name="y" value="281" />
                           </Point>
                         </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="myPageFragment">
+                  <entry key="profileFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-98" />
-                            <option name="y" value="31" />
+                            <option name="x" value="12" />
+                            <option name="y" value="54" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_myPageFragment_to_fotoListFragment">
+                            <entry key="action_myPageFragment_to_friendsListFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_myPageFragment_to_friendsListFragment">
+                            <entry key="action_myPageFragment_to_largePhotoFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
