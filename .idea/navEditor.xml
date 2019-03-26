@@ -52,12 +52,12 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_myPageFragment_to_friendsListFragment">
+                            <entry key="action_profileFragment_to_friendsListFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_myPageFragment_to_largePhotoFragment">
+                            <entry key="action_profileFragment_to_largePhotoFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

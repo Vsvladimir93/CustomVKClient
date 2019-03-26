@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Intent;
 import androidx.annotation.Nullable;
 
-import com.experience.customvkclient.ui.MainActivity;
+import com.experience.customvkclient.view.MainActivity;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKAccessTokenTracker;
 import com.vk.sdk.VKSdk;
@@ -21,6 +21,8 @@ public class App extends Application {
             }
         }
     };
+
+    //TODO: one
 
     @Override
     public void onCreate() {

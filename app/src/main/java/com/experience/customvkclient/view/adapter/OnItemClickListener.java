@@ -1,4 +1,4 @@
-package com.experience.customvkclient.adapter;
+package com.experience.customvkclient.view.adapter;
 
 import android.view.View;
 

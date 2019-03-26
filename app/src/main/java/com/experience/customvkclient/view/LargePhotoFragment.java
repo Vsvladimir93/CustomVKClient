@@ -1,16 +1,13 @@
-package com.experience.customvkclient.ui;
+package com.experience.customvkclient.view;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +34,7 @@ public class LargePhotoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+        //TODO It's net func
         Glide.with(imageView).load(getArguments() != null ? getArguments().getString("url") : "asd").into(imageView);
     }
 }

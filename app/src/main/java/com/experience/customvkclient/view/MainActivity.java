@@ -1,19 +1,24 @@
-package com.experience.customvkclient.ui;
+package com.experience.customvkclient.view;
 
 import android.Manifest;
 import android.content.Intent;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
+
 import com.experience.customvkclient.R;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
@@ -27,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     private final static String LOG_TAG = "MainActivity";
-    NavController navController;
+
     String[] scope = {Manifest.permission.INTERNET, VKScope.PHOTOS, VKScope.FRIENDS};
 
     @Override
@@ -48,16 +53,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
         switch (item.getItemId()) {
             case R.id.menu_my_profile:
-                        navController.navigate(R.id.profileFragment);
+                navController.navigate(R.id.profileFragment);
                 break;
             case R.id.menu_friends:
                 if (navController.getCurrentDestination() != null &&
-                        navController.getCurrentDestination().getId() == R.id.friendsListFragment) {break;}
-                Log.d(LOG_TAG, item.getItemId() + " = " + R.id.menu_my_profile + " itemId");
+                        navController.getCurrentDestination().getId() == R.id.friendsListFragment) {
+                    break;
+                }
                 navController.navigate(R.id.friendsListFragment);
                 break;
         }

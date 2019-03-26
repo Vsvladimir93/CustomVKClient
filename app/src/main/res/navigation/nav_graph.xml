@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.experience.customvkclient.ui.ProfileFragment"
+        android:name="com.experience.customvkclient.view.ProfileFragment"
         android:label="fragment_my_page"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -19,32 +19,19 @@
             <argument android:defaultValue="a"
                 android:name="photo_url" />
         </action>
-        <argument
-            android:name="FriendProfile"
-            app:argType="com.experience.customvkclient.model.Profile"
-            app:nullable="true"
-            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/friendsListFragment"
-        android:name="com.experience.customvkclient.ui.FriendsListFragment"
+        android:name="com.experience.customvkclient.view.FriendsListFragment"
         android:label="fragment_friends_list"
         tools:layout="@layout/fragment_friends_list" >
         <action
             android:id="@+id/action_friendsListFragment_to_profileFragment"
-            app:destination="@id/profileFragment" >
-            <argument
-                android:name="FriendProfile"
-                android:defaultValue="null" />
-        </action>
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/largePhotoFragment"
-        android:name="com.experience.customvkclient.ui.LargePhotoFragment"
+        android:name="com.experience.customvkclient.view.LargePhotoFragment"
         android:label="fragment_large_photo"
-        tools:layout="@layout/fragment_large_photo" >
-        <argument
-            android:name="photo_url"
-            app:argType="string" />
-    </fragment>
+        tools:layout="@layout/fragment_large_photo" />
 </navigation>

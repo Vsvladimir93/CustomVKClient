@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CustomVKClient</string>
     <string name="my_profile">My profile</string>
-    <string name="photos">Photos</string>
+    <string name="photosUrl">Photos</string>
     <string name="friends">Friends</string>
     <string name="user_name">User name</string>
     <string name="user_icon">User icon</string>

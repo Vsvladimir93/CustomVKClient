@@ -1,19 +1,21 @@
-package com.experience.customvkclient.adapter;
+package com.experience.customvkclient.view.adapter;
 
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 import com.experience.customvkclient.R;
 import com.experience.customvkclient.model.Profile;
-
+import com.experience.customvkclient.model.repository.net.OnResponseListener;
+import com.experience.customvkclient.model.repository.net.PhotoRequest;
 import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class FriendsRecyclerViewAdapter extends RecyclerView.Adapter<FriendsRecyclerViewAdapter.FrViewHolder> {
 
@@ -34,10 +36,7 @@ public class FriendsRecyclerViewAdapter extends RecyclerView.Adapter<FriendsRecy
 
     @Override
     public void onBindViewHolder(@NonNull FrViewHolder holder, int position) {
-        Profile profile = friends.get(position);
-        Glide.with(holder.itemView).load(profile.getMainPhoto().getUrl()).into(holder.icon);
-        holder.name.setText(profile.getUserName());
-        holder.onlineStatus.setText(profile.getOnline());
+        holder.fillViewHolder(friends.get(position));
     }
 
     @Override
@@ -51,15 +50,19 @@ public class FriendsRecyclerViewAdapter extends RecyclerView.Adapter<FriendsRecy
 
     class FrViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+        @BindView(R.id.item_image_view)
         ImageView icon;
+        @BindView(R.id.item_text_view_name)
         TextView name;
+        @BindView(R.id.item_text_view_status)
         TextView onlineStatus;
 
         FrViewHolder(@NonNull View itemView) {
             super(itemView);
-            icon = itemView.findViewById(R.id.item_image_view);
+            ButterKnife.bind(this, itemView);
+            /*icon = itemView.findViewById(R.id.item_image_view);
             name = itemView.findViewById(R.id.item_text_view_name);
-            onlineStatus = itemView.findViewById(R.id.item_text_view_status);
+            onlineStatus = itemView.findViewById(R.id.item_text_view_status);*/
             itemView.setOnClickListener(this);
         }
 
@@ -67,6 +70,19 @@ public class FriendsRecyclerViewAdapter extends RecyclerView.Adapter<FriendsRecy
         public void onClick(View v) {
             if (onItemClickListener != null)
                 onItemClickListener.onItemClick(v, getAdapterPosition());
+        }
+
+        private void fillViewHolder(Profile profile){
+            name.setText(profile.getUserName());
+            onlineStatus.setText(profile.getOnline());
+
+            //TODO simplyfy to getBitmap
+            new PhotoRequest().makeRequest(profile.getMainPhotoUrl(), new OnResponseListener<Bitmap>() {
+                @Override
+                public void onResponse(Bitmap response) {
+                    icon.setImageBitmap(response);
+                }
+            });
         }
     }
 
