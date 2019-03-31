@@ -6,7 +6,7 @@
     <string name="user_name">User name</string>
     <string name="user_icon">User icon</string>
     <string name="online_status">Online status</string>
+    <string name="photo">Photo</string>
 
     <integer name="com_vk_sdk_AppId">6833745</integer>
-
 </resources>

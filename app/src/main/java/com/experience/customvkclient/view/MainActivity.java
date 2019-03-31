@@ -33,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
     private final static String LOG_TAG = "MainActivity";
 
+    /**
+     * Permission for Vk
+     */
     String[] scope = {Manifest.permission.INTERNET, VKScope.PHOTOS, VKScope.FRIENDS};
 
     @Override

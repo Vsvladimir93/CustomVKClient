@@ -1,6 +1,7 @@
 package com.experience.customvkclient.view;
 
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.experience.customvkclient.R;
 
 public class LargePhotoFragment extends Fragment {
@@ -22,7 +24,6 @@ public class LargePhotoFragment extends Fragment {
 
     @BindView(R.id.image_view_large_photo)
     ImageView imageView;
-
 
     @Nullable
     @Override
@@ -34,7 +35,8 @@ public class LargePhotoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-        //TODO It's net func
-        Glide.with(imageView).load(getArguments() != null ? getArguments().getString("url") : "asd").into(imageView);
+        Glide.with(imageView)
+                .load(getArguments() != null ? getArguments().getString("url") : "asd")
+                .into(imageView);
     }
 }

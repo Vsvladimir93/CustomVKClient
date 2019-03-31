@@ -1,20 +1,15 @@
 package com.experience.customvkclient.viewmodel;
 
-import android.graphics.Bitmap;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-import com.experience.customvkclient.model.Profile;
-import com.experience.customvkclient.model.repository.net.MyVkApiRequest;
-import com.experience.customvkclient.model.repository.net.OnResponseListener;
-import com.experience.customvkclient.model.repository.net.PhotoRequest;
-import java.util.List;
 
-public class ProfileViewModel extends ViewModel {
+import com.experience.customvkclient.model.Profile;
+import com.experience.customvkclient.repository.net.MyVkApiRequest;
+import com.experience.customvkclient.repository.net.OnResponseListener;
+
+public class ProfileViewModel extends VKViewModel {
 
     private MutableLiveData<Profile> profileMutLive;
-    private MutableLiveData<Bitmap> photo;
-    private static Integer id;
 
     public LiveData<Profile> getProfile() {
         if (profileMutLive == null) {
@@ -24,14 +19,14 @@ public class ProfileViewModel extends ViewModel {
         return profileMutLive;
     }
 
-    /*public LiveData<Bitmap> getPhoto(){
-        if(photo == null){
-            photo = new MutableLiveData<>();
-            loadPhoto(getProfile().getValue().getMainPhotoUrl());
-        }
-        return photo;
-    }*/
-
+    /**
+     * This method provide opportunity open friends Profile like default yours.
+     *   id != null mean that switch-over between FriendsListFragment and ProfileFragment
+     * occured when you click on friend profile in FriendsListF. then FriendsViewModel
+     * assign id of friend profile to static int id in common parent
+     * class VkViewModel {@link VKViewModel};
+     *  So when id != null mean it's friend's profile will load
+     */
     private void loadProfile() {
         if (id == null) {
             MyVkApiRequest.requestVkProfile(new OnResponseListener<Profile>() {
@@ -51,15 +46,4 @@ public class ProfileViewModel extends ViewModel {
         }
     }
 
-    public void loadPhoto(String url, OnResponseListener<Bitmap> onResponseListener) {
-        new PhotoRequest().makeRequest(url, onResponseListener);
-    }
-
-    public void setId(int friendId) {
-        id = friendId;
-    }
-
-    private void clearId() {
-        id = null;
-    }
 }

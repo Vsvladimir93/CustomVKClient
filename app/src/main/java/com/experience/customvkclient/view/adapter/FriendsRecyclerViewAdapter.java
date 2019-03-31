@@ -1,16 +1,18 @@
 package com.experience.customvkclient.view.adapter;
 
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.experience.customvkclient.R;
 import com.experience.customvkclient.model.Profile;
-import com.experience.customvkclient.model.repository.net.OnResponseListener;
-import com.experience.customvkclient.model.repository.net.PhotoRequest;
+
 import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -60,9 +62,6 @@ public class FriendsRecyclerViewAdapter extends RecyclerView.Adapter<FriendsRecy
         FrViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            /*icon = itemView.findViewById(R.id.item_image_view);
-            name = itemView.findViewById(R.id.item_text_view_name);
-            onlineStatus = itemView.findViewById(R.id.item_text_view_status);*/
             itemView.setOnClickListener(this);
         }
 
@@ -72,17 +71,10 @@ public class FriendsRecyclerViewAdapter extends RecyclerView.Adapter<FriendsRecy
                 onItemClickListener.onItemClick(v, getAdapterPosition());
         }
 
-        private void fillViewHolder(Profile profile){
-            name.setText(profile.getUserName());
-            onlineStatus.setText(profile.getOnline());
-
-            //TODO simplyfy to getBitmap
-            new PhotoRequest().makeRequest(profile.getMainPhotoUrl(), new OnResponseListener<Bitmap>() {
-                @Override
-                public void onResponse(Bitmap response) {
-                    icon.setImageBitmap(response);
-                }
-            });
+        private void fillViewHolder(Profile profile) {
+            name.setText(String.format("%s %s", profile.getFirstName(), profile.getLastName()));
+            onlineStatus.setText(profile.getOnline().equals("1") ? "Online" : "Offline");
+            Glide.with(icon).load(profile.getPhotoMax()).apply(RequestOptions.circleCropTransform()).into(icon);
         }
     }
 

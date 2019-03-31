@@ -1,7 +1,7 @@
 package com.experience.customvkclient.view;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -11,29 +11,39 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.experience.customvkclient.R;
+import com.experience.customvkclient.model.Photo;
 import com.experience.customvkclient.view.adapter.OnItemClickListener;
 import com.experience.customvkclient.view.adapter.PhotoRecyclerViewAdapter;
 import com.experience.customvkclient.model.Profile;
-import com.experience.customvkclient.model.repository.net.OnResponseListener;
-import com.experience.customvkclient.model.repository.net.PhotoRequest;
 import com.experience.customvkclient.viewmodel.ProfileViewModel;
+
 import java.util.List;
 
-public class ProfileFragment extends Fragment implements OnItemClickListener {
+public class ProfileFragment extends Fragment implements OnItemClickListener, View.OnClickListener {
 
     private final static String LOG_TAG = "ProfileFragment";
 
-    @BindView(R.id.profile_info_txv)
-    TextView profileInfoTxv;
+    @BindView(R.id.profile_name_txv)
+    TextView profileNameTxv;
+    @BindView(R.id.profile_bdate)
+    TextView profileBdate;
+    @BindView(R.id.profile_location)
+    TextView profileLocation;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
     @BindView(R.id.profile_avatar)
@@ -41,8 +51,10 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
     @BindView(R.id.profile_recycler_photo)
     RecyclerView recyclerView;
 
+    private Profile currentProfile = new Profile();
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_profile, container, false);
     }
@@ -55,35 +67,60 @@ public class ProfileFragment extends Fragment implements OnItemClickListener {
         profileViewModel.getProfile().observe(this, new Observer<Profile>() {
             @Override
             public void onChanged(Profile profile) {
+                currentProfile = profile;
                 fillProfile(profile);
-                profileViewModel.loadPhoto(profile.getMainPhotoUrl(), new OnResponseListener<Bitmap>() {
-                    @Override
-                    public void onResponse(Bitmap response) {
-                        profileAvatar.setImageBitmap(response);
-
-                    }
-                });
                 progressBar.setVisibility(View.INVISIBLE);
             }
         });
 
     }
 
+    //TODO Profile.Credentials - might be null
     private void fillProfile(Profile profile) {
-        profileInfoTxv.setText(profile.getUserName());
+        profileNameTxv.setText(String.format("%s %s", profile.getFirstName(), profile.getLastName()));
+        profileBdate.setText(profile.getBdate());
+        profileLocation.setText(checkForm(profile.getCountry().getTitle(), profile.getCity().getTitle()));
+        profileAvatar.setOnClickListener(this);
+        profileAvatar.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        Glide.with(profileAvatar)
+                .load(profile.getPhotosUrl().get(0).getPhoto604())
+                .into(profileAvatar);
         photoRecyclerInit(profile.getPhotosUrl());
     }
 
-    private void photoRecyclerInit(List<String> photos){
+    private String checkForm(String country, String city) {
+        String result = "";
+        if (!TextUtils.isEmpty(country)) {
+            result = country;
+            if(!TextUtils.isEmpty(city)){
+                result = result.concat(String.format(", %s", city));
+            }
+        } else if(!TextUtils.isEmpty(city)){
+            result = city;
+        }
+        return result;
+    }
+
+    private void photoRecyclerInit(List<Photo> photos) {
         PhotoRecyclerViewAdapter photoRecyclerViewAdapter = new PhotoRecyclerViewAdapter(photos);
         photoRecyclerViewAdapter.setOnItemClickListener(ProfileFragment.this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         recyclerView.setAdapter(photoRecyclerViewAdapter);
     }
 
     @Override
     public void onItemClick(View view, int position) {
+        Bundle bundle = new Bundle();
+        bundle.putString("url", currentProfile.getPhotosUrl().get(position).getPhoto604());
         NavController navController = NavHostFragment.findNavController(ProfileFragment.this);
-        navController.navigate(R.id.action_profileFragment_to_largePhotoFragment);
+        navController.navigate(R.id.action_profileFragment_to_largePhotoFragment, bundle);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Bundle bundle = new Bundle();
+        bundle.putString("url", currentProfile.getPhotosUrl().get(0).getPhoto604());
+        NavController navController = NavHostFragment.findNavController(ProfileFragment.this);
+        navController.navigate(R.id.action_profileFragment_to_largePhotoFragment, bundle);
     }
 }

@@ -1,8 +1,7 @@
 package com.experience.customvkclient.model;
 
-import android.util.Log;
-
-import org.json.JSONObject;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,27 +9,88 @@ import java.util.List;
 public class Profile {
 
     private final static String LOG_TAG = "Profile";
-    private int id;
-    private String userName;
-    //TODO change String to Boolean - isOnline
+
+    @SerializedName("id")
+    @Expose
+    private Integer id;
+    @SerializedName("first_name")
+    @Expose
+    private String firstName;
+    @SerializedName("last_name")
+    @Expose
+    private String lastName;
+    @SerializedName("bdate")
+    @Expose
+    private String bdate;
+    @SerializedName("city")
+    @Expose
+    private City city = new City();
+    @SerializedName("country")
+    @Expose
+    private Country country = new Country();
+    @SerializedName("photo_max")
+    @Expose
+    private String photoMax;
+    @SerializedName("online")
+    @Expose
     private String online;
-    private String mainPhotoUrl;
-    private List<String> photosUrl = new ArrayList<>();
 
-    public String getUserName() {
-        return userName;
-    }
+    private List<Photo> photosUrl = new ArrayList<>();
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getBdate() {
+        return bdate;
+    }
+
+    public void setBdate(String bdate) {
+        this.bdate = bdate;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public String getPhotoMax() {
+        return photoMax;
+    }
+
+    public void setPhotoMax(String photoMax) {
+        this.photoMax = photoMax;
     }
 
     public String getOnline() {
@@ -41,33 +101,12 @@ public class Profile {
         this.online = online;
     }
 
-    public String getMainPhotoUrl() {
-        return mainPhotoUrl;
-    }
-
-    public void setMainPhotoUrl(String mainPhotoUrl) {
-        this.mainPhotoUrl = mainPhotoUrl;
-    }
-
-    public List<String> getPhotosUrl() {
+    public List<Photo> getPhotosUrl() {
         return photosUrl;
     }
 
-    public void setPhotosUrl(List<String> photosUrl) {
+    public void setPhotosUrl(List<Photo> photosUrl) {
         this.photosUrl = photosUrl;
     }
 
-    //TODO delete when inject GSON
-    public void parseFromJson(JSONObject jsonObject) {
-        try {
-            id = jsonObject.getInt("id");
-            userName = String.format("%s %s"
-                    , jsonObject.getString("first_name")
-                    , jsonObject.getString("last_name"));
-            mainPhotoUrl = jsonObject.getString("photo_max");
-            online = (jsonObject.getInt("online") == 1) ? "Online" : "Offline";
-        } catch (Exception e) {
-            Log.e(LOG_TAG, e.getMessage());
-        }
-    }
 }

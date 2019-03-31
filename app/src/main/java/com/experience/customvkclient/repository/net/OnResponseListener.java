@@ -1,4 +1,4 @@
-package com.experience.customvkclient.model.repository.net;
+package com.experience.customvkclient.repository.net;
 
 public interface OnResponseListener<T> {
 

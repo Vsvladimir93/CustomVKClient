@@ -33,6 +33,9 @@ public class FriendsListFragment extends Fragment implements OnItemClickListener
     RecyclerView recyclerView;
 
     private final static String LOG_TAG = "FriendsListFragment";
+    private FriendsViewModel friendsVM;
+    private List<Profile> friends = new ArrayList<>();
+    private FriendsRecyclerViewAdapter friendsRecyclerViewAdapter;
 
     @Nullable
     @Override
@@ -45,18 +48,19 @@ public class FriendsListFragment extends Fragment implements OnItemClickListener
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
-
-        FriendsViewModel friendsVM = ViewModelProviders.of(this).get(FriendsViewModel.class);
+        recyclerInit(friends);
+        friendsVM = ViewModelProviders.of(this).get(FriendsViewModel.class);
         friendsVM.getFriends().observe(this, new Observer<List<Profile>>() {
             @Override
             public void onChanged(List<Profile> profiles) {
-                recyclerInit(profiles);
+                friends.addAll(profiles);
+                friendsRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
     }
 
     private void recyclerInit(List<Profile> friends){
-        FriendsRecyclerViewAdapter friendsRecyclerViewAdapter = new FriendsRecyclerViewAdapter(friends);
+        friendsRecyclerViewAdapter = new FriendsRecyclerViewAdapter(friends);
         friendsRecyclerViewAdapter.setOnItemClickListener(FriendsListFragment.this);
         recyclerView.setAdapter(friendsRecyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -64,8 +68,7 @@ public class FriendsListFragment extends Fragment implements OnItemClickListener
 
     @Override
     public void onItemClick(View view, int position) {
-        //TODO transfer data between fragments
-        //friendsVM.setId(friends.get(position).getId());
+        friendsVM.setId(friends.get(position).getId());
         NavController navController = NavHostFragment.findNavController(FriendsListFragment.this);
         navController.navigate(R.id.action_friendsListFragment_to_profileFragment);
     }

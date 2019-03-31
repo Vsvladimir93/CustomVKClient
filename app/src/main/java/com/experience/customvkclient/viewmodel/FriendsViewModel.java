@@ -2,13 +2,14 @@ package com.experience.customvkclient.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+
 import com.experience.customvkclient.model.Profile;
-import com.experience.customvkclient.model.repository.net.MyVkApiRequest;
-import com.experience.customvkclient.model.repository.net.OnResponseListener;
+import com.experience.customvkclient.repository.net.MyVkApiRequest;
+import com.experience.customvkclient.repository.net.OnResponseListener;
+
 import java.util.List;
 
-public class FriendsViewModel extends ViewModel {
+public class FriendsViewModel extends VKViewModel {
 
     private MutableLiveData<List<Profile>> friendsMutLive;
 

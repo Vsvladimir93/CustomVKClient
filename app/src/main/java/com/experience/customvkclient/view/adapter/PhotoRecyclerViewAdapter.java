@@ -1,14 +1,16 @@
 package com.experience.customvkclient.view.adapter;
 
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 import com.experience.customvkclient.R;
-import com.experience.customvkclient.model.repository.net.OnResponseListener;
-import com.experience.customvkclient.model.repository.net.PhotoRequest;
+import com.experience.customvkclient.model.Photo;
+
 import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,11 +19,10 @@ import butterknife.ButterKnife;
 
 public class PhotoRecyclerViewAdapter extends RecyclerView.Adapter<PhotoRecyclerViewAdapter.PhotoViewHolder> {
 
-    private List<String> photos;
+    private List<Photo> photos;
     private OnItemClickListener onItemClickListener;
 
-
-    public PhotoRecyclerViewAdapter(List<String> photos) {
+    public PhotoRecyclerViewAdapter(List<Photo> photos) {
         this.photos = photos;
     }
 
@@ -35,12 +36,7 @@ public class PhotoRecyclerViewAdapter extends RecyclerView.Adapter<PhotoRecycler
 
     @Override
     public void onBindViewHolder(@NonNull PhotoViewHolder holder, int position) {
-        new PhotoRequest().makeRequest(photos.get(position), new OnResponseListener<Bitmap>() {
-            @Override
-            public void onResponse(Bitmap response) {
-                holder.imageView.setImageBitmap(response);
-            }
-        });
+        Glide.with(holder.imageView).load(photos.get(position).getPhoto604()).into(holder.imageView);
     }
 
     @Override
